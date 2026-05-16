@@ -1,4 +1,4 @@
-// === WORLD ===
+// === SCENE ===
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87ceeb);
 
@@ -33,6 +33,7 @@ const controls = new THREE.PointerLockControls(camera, renderer.domElement);
 
 renderer.domElement.addEventListener("click", () => {
     renderer.domElement.focus();
+    renderer.domElement.requestPointerLock();  // ⭐ FORCE POINTER LOCK
     controls.lock();
 });
 
@@ -69,9 +70,10 @@ document.addEventListener("keyup", (e) => {
 });
 
 // === GROUND ===
-const groundGeo = new THREE.BoxGeometry(200, 1, 200);
-const groundMat = new THREE.MeshStandardMaterial({ color: 0x228B22 });
-const ground = new THREE.Mesh(groundGeo, groundMat);
+const ground = new THREE.Mesh(
+    new THREE.BoxGeometry(200, 1, 200),
+    new THREE.MeshStandardMaterial({ color: 0x228B22 })
+);
 ground.position.y = -1;
 scene.add(ground);
 
